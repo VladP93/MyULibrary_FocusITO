@@ -43,8 +43,8 @@ namespace MyULibrary.Controllers
             return await _context.Person.Where(p => p.IdRol == 2).ToListAsync();
         }
 
-        [HttpGet("Login")]
-        public async Task<IActionResult> Login(PersonViewModel person)
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginViewModel person)
         {
             string email = person.Email;
             string password = person.Password;
