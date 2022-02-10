@@ -24,23 +24,56 @@ namespace MyULibrary.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Person>>> GetPerson()
+        public async Task<IEnumerable<PersonViewModel>> GetPerson()
         {
-            return await _context.Person.ToListAsync();
+            var person = await _context.Person.Include(p=>p.Rol).ToListAsync();
+
+            return person.Select(p => new PersonViewModel
+            {
+                IdPerson = p.IdPerson,
+                FirstName = p.FirstName,
+                LastName = p.LastName,
+                Email = p.Email,
+                Password = "*******",
+                IdRol = p.IdRol,
+                Rol = p.Rol.RolName
+            });
         }
 
         // GET: api/Users/Librarians
         [HttpGet("Librarians")]
-        public async Task<ActionResult<IEnumerable<Person>>> GetLibrarian()
+        public async Task<IEnumerable<PersonViewModel>> GetLibrarian()
         {
-            return await _context.Person.Where(p => p.IdRol == 1).ToListAsync();
+            var person =  await _context.Person.Include(p => p.Rol).Where(p => p.IdRol == 1).ToListAsync();
+
+            return person.Select(p => new PersonViewModel
+            {
+                IdPerson = p.IdPerson,
+                FirstName = p.FirstName,
+                LastName = p.LastName,
+                Email = p.Email,
+                Password = "*******",
+                IdRol = p.IdRol,
+                Rol = p.Rol.RolName
+            });
         }
 
         // GET: api/Users/Students
         [HttpGet("Students")]
-        public async Task<ActionResult<IEnumerable<Person>>> GetStudent()
+        public async Task<IEnumerable<PersonViewModel>> GetStudent()
         {
-            return await _context.Person.Where(p => p.IdRol == 2).ToListAsync();
+            var person = await _context.Person.Include(p=>p.Rol).Where(p => p.IdRol == 2).ToListAsync();
+
+            return person.Select(p => new PersonViewModel
+            {
+                IdPerson = p.IdPerson,
+                FirstName = p.FirstName,
+                LastName = p.LastName,
+                Email = p.Email,
+                Password = "*******",
+                IdRol = p.IdRol,
+                Rol = p.Rol.RolName
+            });
         }
 
         [HttpPost("Login")]
@@ -66,16 +99,25 @@ namespace MyULibrary.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Person>> GetPerson(int id)
+        public async Task<IActionResult> GetPerson(int id)
         {
-            var person = await _context.Person.FindAsync(id);
+            var person = await _context.Person.Include(r=>r.Rol).SingleOrDefaultAsync(p => p.IdPerson==id);
 
             if (person == null)
             {
                 return NotFound();
             }
 
-            return person;
+            return Ok(new PersonViewModel
+            {
+                    IdPerson = person.IdPerson,
+                    FirstName = person.FirstName,
+                    LastName = person.LastName,
+                    Email = person.Email,
+                    Password = "*******",
+                    IdRol = person.IdRol,
+                    Rol = person.Rol.RolName
+        });
         }
 
         // PUT: api/Users/5

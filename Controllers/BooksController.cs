@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyULibrary.Models;
+using MyULibrary.ViewModels;
 
 namespace MyULibrary.Controllers
 {
@@ -22,23 +23,47 @@ namespace MyULibrary.Controllers
 
         // GET: api/Books
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>> GetBook()
+        public async Task<IEnumerable<BookViewModel>> GetBook()
         {
-            return await _context.Book.ToListAsync();
+            var book = await _context.Book.Include(b=>b.Genre).ToListAsync();
+
+            return book.Select(b => new BookViewModel
+            {
+                Idbook = b.Idbook,
+                Title = b.Title,
+                Author = b.Author,
+                Description = b.Description,
+                ImageURL = b.ImageURL,
+                Stock = b.Stock,
+                PublishedYear = b.PublishedYear,
+                IdGenre = b.IdGenre,
+                Genre = b.Genre.GenreName
+            });
         }
 
         // GET: api/Books/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> GetBook(int id)
+        public async Task<IActionResult> GetBook(int id)
         {
-            var book = await _context.Book.FindAsync(id);
+            var book = await _context.Book.Include(b => b.Genre).SingleOrDefaultAsync(b=>b.Idbook==id);
 
-            if (book == null)
+            if(book == null)
             {
                 return NotFound();
             }
 
-            return book;
+            return Ok( new BookViewModel
+            {
+                Idbook = book.Idbook,
+                Title = book.Title,
+                Author = book.Author,
+                Description = book.Description,
+                ImageURL = book.ImageURL,
+                Stock = book.Stock,
+                PublishedYear = book.PublishedYear,
+                IdGenre = book.IdGenre,
+                Genre = book.Genre.GenreName
+            });
         }
 
         // PUT: api/Books/5

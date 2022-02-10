@@ -16,7 +16,7 @@ namespace MyULibrary.Models
 
         public MyDbContext(DbContextOptions<MyDbContext> options): base(options)
         {
-
         }
+
     }
 }

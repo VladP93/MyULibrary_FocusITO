@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyULibrary.Models;
+using MyULibrary.ViewModels;
 
 namespace MyULibrary.Controllers
 {
@@ -22,23 +23,45 @@ namespace MyULibrary.Controllers
 
         // GET: api/BookRegistries
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookRegistry>>> GetBookRegistry()
+        public async Task<IEnumerable<BookRegistryViewModel>> GetBookRegistry()
         {
-            return await _context.BookRegistry.ToListAsync();
+            var br =  await _context.BookRegistry.Include(s=>s.Student).Include(b=>b.Book).ToListAsync();
+
+            return br.Select(r => new BookRegistryViewModel
+            {
+                IdBookRegistry = r.IdBookRegistry,
+                DateCheckout = r.DateCheckout,
+                DateReturn = r.DateReturn,
+                Returned = r.Returned,
+                IdBook = r.IdBook,
+                Book = r.Book.Title,
+                IdStudent = r.IdStudent,
+                Student = r.Student.FirstName + " " + r.Student.LastName
+            });
         }
 
         // GET: api/BookRegistries/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<BookRegistry>> GetBookRegistry(int id)
+        public async Task<ActionResult> GetBookRegistry(int id)
         {
-            var bookRegistry = await _context.BookRegistry.FindAsync(id);
+            var r = await _context.BookRegistry.Include(s=>s.Student).Include(b=>b.Book).SingleOrDefaultAsync(br=>br.IdBookRegistry==id);
 
-            if (bookRegistry == null)
+            if (r == null)
             {
                 return NotFound();
             }
 
-            return bookRegistry;
+            return Ok(new BookRegistryViewModel
+            {
+                IdBookRegistry = r.IdBookRegistry,
+                DateCheckout = r.DateCheckout,
+                DateReturn = r.DateReturn,
+                Returned = r.Returned,
+                IdBook = r.IdBook,
+                Book = r.Book.Title,
+                IdStudent = r.IdStudent,
+                Student = r.Student.FirstName + " " + r.Student.LastName
+            });
         }
 
         // PUT: api/BookRegistries/5

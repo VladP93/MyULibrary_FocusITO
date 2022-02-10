@@ -45,7 +45,7 @@ import { BookDetailComponent } from "./book-detail/book-detail.component";
       { path: "counter", component: CounterComponent },
       { path: "fetch-data", component: FetchDataComponent },
       { path: "books", component: BooksComponent },
-      { path: "bookdetails", component: BookDetailComponent },
+      { path: "bookdetails/:id", component: BookDetailComponent },
       { path: "**", component: HomeComponent },
     ]),
   ],
