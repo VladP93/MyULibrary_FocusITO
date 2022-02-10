@@ -1,0 +1,63 @@
+<form>
+  <div class="form-group form-inline">
+    Search Books by Title, Author or Genre:
+    <input class="form-control ml-2" type="text" [formControl]="filter" />
+  </div>
+</form>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Author</th>
+      <th scope="col">Genre</th>
+      <th scope="col">Published Year</th>
+      <th scope="col">Stock</th>
+      <th scope="col">Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let book of booklist | async">
+      <td>
+        <ngb-highlight [result]="book.idbook"></ngb-highlight>
+      </td>
+      <td>
+        <ngb-highlight
+          [result]="book.title"
+          [term]="filter.value"
+        ></ngb-highlight>
+      </td>
+      <td>
+        <ngb-highlight
+          [result]="book.author"
+          [term]="filter.value"
+        ></ngb-highlight>
+      </td>
+      <td>
+        <ngb-highlight
+          [result]="book.genre"
+          [term]="filter.value"
+        ></ngb-highlight>
+      </td>
+      <td>
+        <ngb-highlight
+          [result]="book.publishedYear | date: 'yyyy'"
+        ></ngb-highlight>
+      </td>
+      <td>
+        <ngb-highlight [result]="book.stock | number"></ngb-highlight>
+      </td>
+      <td>
+        <button
+          *ngIf="!book.idbook == 0"
+          type="button"
+          class="btn btn-info"
+          (click)="details(book.idbook)"
+        >
+          Details
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
