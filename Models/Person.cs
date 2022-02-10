@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,6 +25,7 @@ namespace MyULibrary.Models
         [Required]
         public byte[] PasswordSalt { get; set; }
         public int IdRol { get; set; }
+        [ForeignKey("IdRol")]
         public Rol Rol { get; set; }
         public ICollection<BookRegistry> Registries { get; set; }
     }
