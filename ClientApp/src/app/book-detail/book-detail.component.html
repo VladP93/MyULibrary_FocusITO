@@ -1,1 +1,52 @@
-<p>book-detail works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div class="card">
+        <img
+          src="{{ book.imageURL }}"
+          width="180px"
+          height="500px"
+          class="card-img-top"
+          alt="{{ book.title }}"
+        />
+        <div class="card-body">
+          <h4 class="card-title">{{ book.title }}</h4>
+          <h5 class="card-subtitle" style="color: #888">{{ book.genre }}</h5>
+          <hr />
+          <p class="card-text">
+            <b>Author:</b> {{ book.author }} <br /><b>Year:</b>
+            {{ book.publishedYear | date: "yyyy" }}<br /><b
+              >Remains in stock:</b
+            >
+            {{ book.stock }}
+          </p>
+          <div style="text-align: right">
+            <button
+              [disabled]="book.stock <= 0 || requested"
+              type="button"
+              class="btn btn-info"
+              (click)="requestBook(book.idbook)"
+            >
+              Request Book
+            </button>
+            <div [hidden]="!requested">
+              <small class="text-danger">*You already have the book</small>
+            </div>
+            <div [hidden]="!book.stock <= 0">
+              <small class="text-danger">*Book out of stock</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="card">
+        <h5 class="card-header">Prologue/Description</h5>
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">{{ book.title }}</h6>
+          <p class="card-text">{{ book.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

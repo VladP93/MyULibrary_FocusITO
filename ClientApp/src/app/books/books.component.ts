@@ -5,6 +5,7 @@ import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
 import { map, startWith } from "rxjs/operators";
 import { LibraryService } from "../services/library.service";
+import { Router } from "@angular/router";
 
 interface Book {
   idbook: number;
@@ -34,7 +35,11 @@ export class BooksComponent implements OnInit {
   ];
   filter = new FormControl("");
 
-  constructor(pipe: DecimalPipe, private _libraryService: LibraryService) {
+  constructor(
+    pipe: DecimalPipe,
+    private _libraryService: LibraryService,
+    private router: Router
+  ) {
     this.booklist = this.filter.valueChanges.pipe(
       startWith(""),
       map((text) => this.search(text, pipe))
@@ -59,7 +64,7 @@ export class BooksComponent implements OnInit {
   }
 
   details(id: number) {
-    console.log(id);
+    this.router.navigate(["bookdetails/" + id]);
   }
 
   ngOnInit() {
