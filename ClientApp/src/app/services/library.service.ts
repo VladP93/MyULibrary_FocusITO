@@ -21,14 +21,6 @@ export class LibraryService {
     return this.http.get(this.apiUrl + "Books");
   }
 
-  getBook(id: number): Observable<any> {
-    return this.http.get(this.apiUrl + "Books/" + id);
-  }
-
-  updateBook(id: number, book: any): Observable<any> {
-    return this.http.put(this.apiUrl + "Books/" + id, book);
-  }
-
   getBookRegistries(): Observable<any> {
     return this.http.get(this.apiUrl + "BookRegistries");
   }
@@ -37,12 +29,47 @@ export class LibraryService {
     return this.http.get(this.apiUrl + "BookRegistries/" + id);
   }
 
+  getBook(id: number): Observable<any> {
+    return this.http.get(this.apiUrl + "Books/" + id);
+  }
+
+  getGenres(): Observable<any> {
+    return this.http.get(this.apiUrl + "Genres");
+  }
+
+  getUsers(): Observable<any> {
+    return this.http.get(this.apiUrl + "Users");
+  }
+
+  getRols(): Observable<any> {
+    return this.http.get(this.apiUrl + "Rols");
+  }
+
+  getStudents(): Observable<any> {
+    return this.http.get(this.apiUrl + "Users/Students");
+  }
+
+  getLibrarians(): Observable<any> {
+    return this.http.get(this.apiUrl + "Users/Librarians");
+  }
+
+  createBook(book: any): Observable<any> {
+    return this.http.post(this.apiUrl + "Books", book);
+  }
+
   createBookRegistry(bookregistry: any): Observable<any> {
     return this.http.post(this.apiUrl + "BookRegistries", bookregistry);
   }
 
+  createUser(user: any): Observable<any> {
+    return this.http.post(this.apiUrl + "Users", user);
+  }
+
+  updateBook(id: number, book: any): Observable<any> {
+    return this.http.put(this.apiUrl + "Books/" + id, book);
+  }
+
   returnToLibrary(id: number, bookregistry: any): Observable<any> {
-    console.log(bookregistry);
     return this.http.put(this.apiUrl + "BookRegistries/" + id, bookregistry);
   }
 }

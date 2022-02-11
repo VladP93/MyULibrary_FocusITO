@@ -1,1 +1,122 @@
-<p>book works!</p>
+<div class="container">
+  <h3>Add Books</h3>
+  <form [formGroup]="form" (ngSubmit)="saveBook()">
+    <div class="row">
+      <div class="form-group col-md">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          formControlName="title"
+        />
+      </div>
+      <div class="form-group col-md">
+        <label for="author">Author</label>
+        <input
+          type="text"
+          class="form-control"
+          id="author"
+          formControlName="author"
+        />
+      </div>
+      <div class="form-group col-md">
+        <label for="stock">Stock</label>
+        <input
+          type="number"
+          class="form-control"
+          id="stock"
+          formControlName="stock"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md">
+        <label for="publishedYear">Published Year</label>
+        <input
+          type="date"
+          class="form-control"
+          id="publishedYear"
+          formControlName="publishedYear"
+        />
+      </div>
+      <div class="form-group col-md">
+        <label for="idGenre">Genre</label>
+        <select class="form-control" id="idGgenre" formControlName="idGenre">
+          <option value="" disabled selected>Select your option</option>
+          <option *ngFor="let genre of genres" value="{{ genre.idGenre }}">
+            {{ genre.genreName }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-md">
+        <label for="image">Image URL</label>
+        <input
+          type="text"
+          class="form-control"
+          id="image"
+          formControlName="imageURL"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md">
+        <label for="description">Description</label>
+        <textarea
+          rows="5"
+          class="form-control"
+          id="description"
+          formControlName="description"
+        ></textarea>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <div>
+      <small class="text-danger" *ngIf="errorMessage"
+        >Error: {{ errorMessage }}</small
+      >
+    </div>
+  </form>
+  <hr />
+  <h3>Books List</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Published Year</th>
+        <th scope="col">Genre</th>
+        <th scope="col">Image</th>
+        <th scope="col">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books">
+        <td>
+          {{ book.idbook }}
+        </td>
+        <td>
+          {{ book.title }}
+        </td>
+        <td>
+          {{ book.author }}
+        </td>
+        <td>
+          {{ book.stock | number }}
+        </td>
+        <td>
+          {{ book.publishedYear | date: "yyyy" }}
+        </td>
+        <td>
+          {{ book.genre }}
+        </td>
+        <td>
+          <img src="{{ book.imageURL }}" width="50" height="90" />
+        </td>
+        <td>{{ book.description | slice: 0:30 }} ...</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
