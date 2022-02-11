@@ -30,9 +30,16 @@ export class HomeComponent implements OnInit {
     };
 
     this._libraryService.getLogin(credentials).subscribe((d) => {
+      console.log(d);
       if (d.loginStatus == "ok") {
-        this.router.navigate(["books"]);
         this._libraryService.isLogged = true;
+        this._libraryService.userLogged = d.iduser;
+        this._libraryService.rolLogged = d.idrol;
+        if (d.idrol == 1) {
+          this.router.navigate(["bookregistry"]);
+        } else if (d.idrol == 2) {
+          this.router.navigate(["books"]);
+        }
       }
     });
 

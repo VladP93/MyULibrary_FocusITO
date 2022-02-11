@@ -24,17 +24,48 @@
             class="nav-item"
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
+            [hidden]="_libraryService.rolLogged != 1"
           >
-            <a class="nav-link text-white" [routerLink]="['/']">Home</a>
+            <a class="nav-link text-white" [routerLink]="['/book']">Books</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-white" [routerLink]="['/counter']"
-              >Counter</a
+          <li
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [hidden]="_libraryService.rolLogged != 1"
+          >
+            <a class="nav-link text-white" [routerLink]="['/users']">Users</a>
+          </li>
+          <li
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [hidden]="_libraryService.rolLogged != 1"
+          >
+            <a class="nav-link text-white" [routerLink]="['/bookregistry']"
+              >Library</a
             >
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-white" [routerLink]="['/fetch-data']"
-              >Fetch data</a
+          <li
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [hidden]="_libraryService.rolLogged != 2"
+          >
+            <a class="nav-link text-white" [routerLink]="['/books']"
+              >Book List</a
+            >
+          </li>
+          <li
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a
+              class="nav-link text-white"
+              (click)="logout()"
+              [routerLink]="['/']"
+              >Log out</a
             >
           </li>
         </ul>

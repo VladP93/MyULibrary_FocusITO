@@ -19,6 +19,7 @@ import { BooksComponent } from "./books/books.component";
 import { UsersComponent } from "./users/users.component";
 import { BookComponent } from "./book/book.component";
 import { BookDetailComponent } from "./book-detail/book-detail.component";
+import { BookRegistryComponent } from "./book-registry/book-registry.component";
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { BookDetailComponent } from "./book-detail/book-detail.component";
     UsersComponent,
     BookComponent,
     BookDetailComponent,
+    BookRegistryComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -41,11 +43,15 @@ import { BookDetailComponent } from "./book-detail/book-detail.component";
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: "", component: HomeComponent, pathMatch: "full" },
+      //{ path: "", component: HomeComponent, pathMatch: "full" },
+      { path: "", component: BookComponent, pathMatch: "full" },
       { path: "counter", component: CounterComponent },
       { path: "fetch-data", component: FetchDataComponent },
       { path: "books", component: BooksComponent },
       { path: "bookdetails/:id", component: BookDetailComponent },
+      { path: "bookregistry", component: BookRegistryComponent },
+      { path: "book", component: BookComponent },
+      { path: "users", component: UsersComponent },
       { path: "**", component: HomeComponent },
     ]),
   ],

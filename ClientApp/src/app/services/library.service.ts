@@ -8,6 +8,8 @@ import { Observable } from "rxjs";
 export class LibraryService {
   private apiUrl = "https://localhost:44318/api/";
   isLogged: boolean = false;
+  rolLogged: number = 0;
+  userLogged: number = 0;
 
   constructor(private http: HttpClient) {}
 
@@ -25,5 +27,22 @@ export class LibraryService {
 
   updateBook(id: number, book: any): Observable<any> {
     return this.http.put(this.apiUrl + "Books/" + id, book);
+  }
+
+  getBookRegistries(): Observable<any> {
+    return this.http.get(this.apiUrl + "BookRegistries");
+  }
+
+  getBookRegistry(id: number): Observable<any> {
+    return this.http.get(this.apiUrl + "BookRegistries/" + id);
+  }
+
+  createBookRegistry(bookregistry: any): Observable<any> {
+    return this.http.post(this.apiUrl + "BookRegistries", bookregistry);
+  }
+
+  returnToLibrary(id: number, bookregistry: any): Observable<any> {
+    console.log(bookregistry);
+    return this.http.put(this.apiUrl + "BookRegistries/" + id, bookregistry);
   }
 }
