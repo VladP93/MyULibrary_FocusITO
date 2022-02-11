@@ -94,7 +94,7 @@ namespace MyULibrary.Controllers
                 return NotFound();
             }
 
-            return Ok(new { loginStatus = "ok" });
+            return Ok(new { loginStatus = "ok", idrol = _person.IdRol });
         }
 
         // GET: api/Users/5
