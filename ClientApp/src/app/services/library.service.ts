@@ -18,4 +18,12 @@ export class LibraryService {
   getBooks(): Observable<any> {
     return this.http.get(this.apiUrl + "Books");
   }
+
+  getBook(id: number): Observable<any> {
+    return this.http.get(this.apiUrl + "Books/" + id);
+  }
+
+  updateBook(id: number, book: any): Observable<any> {
+    return this.http.put(this.apiUrl + "Books/" + id, book);
+  }
 }
