@@ -1,4 +1,3 @@
-import { ThrowStmt } from "@angular/compiler";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { LibraryService } from "../services/library.service";
@@ -48,13 +47,12 @@ export class BookDetailComponent implements OnInit {
 
   getBookData(id: number) {
     this._libraryService.getBook(id).subscribe((d) => {
-      console.log(d);
       this.book = d;
     });
   }
 
   requestBook(id: number) {
-    let bookObj = {
+    let bookUpdate = {
       idbook: this.book.idbook,
       title: this.book.title,
       author: this.book.author,
@@ -64,8 +62,23 @@ export class BookDetailComponent implements OnInit {
       imageURL: this.book.imageURL,
       publishedYear: this.book.publishedYear,
     };
-    this._libraryService.updateBook(id, bookObj).subscribe((d) => {
+
+    let date = new Date();
+
+    let bookRegistry = {
+      dateCheckout: date,
+      dateReturn: date,
+      returned: false,
+      idBook: id,
+      idStudent: this._libraryService.userLogged,
+    };
+
+    this._libraryService.updateBook(id, bookUpdate).subscribe((d) => {
       this.requested = true;
+    });
+
+    this._libraryService.createBookRegistry(bookRegistry).subscribe((d) => {
+      console.log(d);
     });
 
     this.getBookData(id);
