@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
 import { LibraryService } from "../services/library.service";
 
 @Component({
@@ -15,7 +16,8 @@ export class BookComponent implements OnInit {
 
   constructor(
     private _libraryService: LibraryService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.form = this.fb.group({
       title: "",
@@ -29,6 +31,12 @@ export class BookComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (
+      !this._libraryService.isLogged &&
+      this._libraryService.userLogged != 1
+    ) {
+      this.router.navigate([""]);
+    }
     this.getBooklist();
     this.getGenres();
   }

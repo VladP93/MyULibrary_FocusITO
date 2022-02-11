@@ -58,7 +58,6 @@ export class BooksComponent implements OnInit {
 
   getBooks() {
     this._libraryService.getBooks().subscribe((d) => {
-      console.log(d);
       this.books = d;
     });
   }
@@ -68,6 +67,12 @@ export class BooksComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (
+      !this._libraryService.isLogged &&
+      this._libraryService.userLogged != 2
+    ) {
+      this.router.navigate([""]);
+    }
     this.getBooks();
   }
 }

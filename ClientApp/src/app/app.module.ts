@@ -44,7 +44,6 @@ import { BookRegistryComponent } from "./book-registry/book-registry.component";
     FormsModule,
     RouterModule.forRoot([
       { path: "", component: HomeComponent, pathMatch: "full" },
-      //{ path: "", component: BookComponent, pathMatch: "full" },
       { path: "counter", component: CounterComponent },
       { path: "fetch-data", component: FetchDataComponent },
       { path: "books", component: BooksComponent },

@@ -1,1 +1,92 @@
-<p>users works!</p>
+<div class="container">
+  <h3>Add Users</h3>
+  <form [formGroup]="form" (ngSubmit)="saveUser()">
+    <div class="row">
+      <div class="form-group col-md">
+        <label for="title">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          formControlName="firstName"
+        />
+      </div>
+      <div class="form-group col-md">
+        <label for="author">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          formControlName="lastName"
+        />
+      </div>
+      <div class="form-group col-md">
+        <label for="idRol">Role</label>
+        <select class="form-control" id="idRol" formControlName="idRol">
+          <option value="" disabled selected>Select your option</option>
+          <option *ngFor="let rol of rols" value="{{ rol.idRol }}">
+            {{ rol.rolName }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md">
+        <label for="title">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          formControlName="email"
+        />
+      </div>
+      <div class="form-group col-md">
+        <label for="title">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+        />
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <div>
+      <small class="text-danger" *ngIf="errorMessage"
+        >Error: {{ errorMessage }}</small
+      >
+    </div>
+  </form>
+  <hr />
+  <h3>User List</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Role</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>
+          {{ user.idPerson }}
+        </td>
+        <td>
+          {{ user.firstName }}
+        </td>
+        <td>
+          {{ user.lastName }}
+        </td>
+        <td>
+          {{ user.rol }}
+        </td>
+        <td>
+          {{ user.email }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
