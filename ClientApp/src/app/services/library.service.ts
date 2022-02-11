@@ -25,6 +25,14 @@ export class LibraryService {
     return this.http.get(this.apiUrl + "Books/" + id);
   }
 
+  getGenres(): Observable<any> {
+    return this.http.get(this.apiUrl + "Genres");
+  }
+
+  createBook(book: any): Observable<any> {
+    return this.http.post(this.apiUrl + "Books", book);
+  }
+
   updateBook(id: number, book: any): Observable<any> {
     return this.http.put(this.apiUrl + "Books/" + id, book);
   }

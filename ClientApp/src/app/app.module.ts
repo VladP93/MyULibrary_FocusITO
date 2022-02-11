@@ -43,8 +43,8 @@ import { BookRegistryComponent } from "./book-registry/book-registry.component";
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forRoot([
-      //{ path: "", component: HomeComponent, pathMatch: "full" },
-      { path: "", component: BookComponent, pathMatch: "full" },
+      { path: "", component: HomeComponent, pathMatch: "full" },
+      //{ path: "", component: BookComponent, pathMatch: "full" },
       { path: "counter", component: CounterComponent },
       { path: "fetch-data", component: FetchDataComponent },
       { path: "books", component: BooksComponent },
