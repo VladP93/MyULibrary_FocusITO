@@ -80,7 +80,6 @@ export class BookComponent implements OnInit {
     }
     if (!errorQ) {
       this._libraryService.createBook(book).subscribe((d) => {
-        console.log(d);
         this.form.reset();
         this.getBooklist();
       });

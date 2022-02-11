@@ -31,6 +31,7 @@ export class BookRegistryComponent implements OnInit {
   }
 
   returnBook(idBookRegistry: number) {
+    var idBookToReturn = 0;
     this._libraryService.getBookRegistry(idBookRegistry).subscribe((d) => {
       var bookRegistry = {
         idBookRegistry: idBookRegistry,
@@ -40,9 +41,26 @@ export class BookRegistryComponent implements OnInit {
         dateReturn: new Date(),
         returned: true,
       };
+      idBookToReturn = d.idBook;
       this._libraryService
         .returnToLibrary(idBookRegistry, bookRegistry)
         .subscribe((d) => {
+          this._libraryService.getBook(idBookToReturn).subscribe((d) => {
+            let bookUpdate = {
+              idbook: d.idbook,
+              title: d.title,
+              author: d.author,
+              stock: d.stock + 1,
+              idGenre: d.idGenre,
+              description: d.description,
+              imageURL: d.imageURL,
+              publishedYear: d.publishedYear,
+            };
+
+            this._libraryService
+              .updateBook(bookUpdate.idbook, bookUpdate)
+              .subscribe((d) => {});
+          });
           this.getRegistries();
         });
     });
@@ -50,7 +68,6 @@ export class BookRegistryComponent implements OnInit {
 
   getRegistries() {
     this._libraryService.getBookRegistries().subscribe((d) => {
-      console.log(d);
       this.bookregistries = d;
     });
   }

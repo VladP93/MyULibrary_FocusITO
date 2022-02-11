@@ -32,7 +32,7 @@
             <div [hidden]="!requested">
               <small class="text-danger">*You already have the book</small>
             </div>
-            <div [hidden]="!book.stock <= 0">
+            <div [hidden]="!(book.stock <= 0)">
               <small class="text-danger">*Book out of stock</small>
             </div>
           </div>

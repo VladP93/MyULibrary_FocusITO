@@ -6,7 +6,8 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class LibraryService {
-  private apiUrl = "https://localhost:44318/api/";
+  private apiUrl = "https://myulibrary20220211043256.azurewebsites.net/api/";
+  //private apiUrl = "https://localhost:44318/api/";
   isLogged: boolean = false;
   rolLogged: number = 0;
   userLogged: number = 0;

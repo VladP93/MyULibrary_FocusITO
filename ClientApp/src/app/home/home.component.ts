@@ -30,7 +30,6 @@ export class HomeComponent implements OnInit {
     };
 
     this._libraryService.getLogin(credentials).subscribe((d) => {
-      console.log(d);
       if (d.loginStatus == "ok") {
         this._libraryService.isLogged = true;
         this._libraryService.userLogged = d.iduser;

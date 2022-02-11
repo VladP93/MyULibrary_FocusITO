@@ -77,9 +77,7 @@ export class BookDetailComponent implements OnInit {
       this.requested = true;
     });
 
-    this._libraryService.createBookRegistry(bookRegistry).subscribe((d) => {
-      console.log(d);
-    });
+    this._libraryService.createBookRegistry(bookRegistry).subscribe((d) => {});
 
     this.getBookData(id);
   }

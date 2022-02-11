@@ -95,7 +95,6 @@ export class UsersComponent implements OnInit {
     }
     if (!errorQ) {
       this._libraryService.createUser(user).subscribe((d) => {
-        console.log(d);
         this.form.reset();
         this.getUsers();
       });

@@ -51,7 +51,6 @@ import { BookRegistryComponent } from "./book-registry/book-registry.component";
       { path: "bookregistry", component: BookRegistryComponent },
       { path: "book", component: BookComponent },
       { path: "users", component: UsersComponent },
-      { path: "**", component: HomeComponent },
     ]),
   ],
   providers: [DecimalPipe],
